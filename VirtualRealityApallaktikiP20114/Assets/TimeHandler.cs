@@ -11,6 +11,11 @@ public class TimeHandler : MonoBehaviour
     [SerializeField] private Texture2D skyboxSunrise;
     [SerializeField] private Texture2D skyboxDay;
     [SerializeField] private Texture2D skyboxSunset;
+
+    [SerializeField] private Cubemap cubemapNight;
+    [SerializeField] private Cubemap cubemapSunrise;
+    [SerializeField] private Cubemap cubemapDay;
+    [SerializeField] private Cubemap cubemapSunset;
  
     [SerializeField] private Gradient graddientNightToSunrise;
     [SerializeField] private Gradient graddientSunriseToDay;
@@ -37,6 +42,16 @@ public class TimeHandler : MonoBehaviour
         globalLight.color = new Color((float)0.2156, (float)0.5607, (float)0.8313); //(float) (55/255), (float) (143/255), (float) (212/255));
         //RenderSettings.subtractiveShadowColor = new Color((float)0.2156, (float)0.5607, (float)0.8313);
         //RenderSettings.fogColor = globalLight.color;
+        
+        // RenderSettings.ref
+        //RenderSettings.reflectionIntensity = 0.800f;
+        // RenderSettings.customReflection
+        // Cubemap cubemap = new Cubemap(128, TextureFormat.RGB24,false);
+        // Graphics.ConvertTexture(skyboxNight,cubemap);
+        RenderSettings.customReflectionTexture = cubemapNight;
+        // RenderSettings.defaultReflectionMode
+        // TextureFormat textureFormat = new TextureFormat();
+        // Texture t = new Texture2D();
     }
 
     // Update is called once per frame
@@ -57,6 +72,13 @@ public class TimeHandler : MonoBehaviour
             case > 6 and <= 8:
             //globalLight.transform.Rotate(Vector3.right, 1f/6f, Space.World);
             globalLight.transform.rotation *= Quaternion.Euler(1f/6f, 0, 0); //torque * Time.deltaTime);
+
+            // if(hours==6){
+            //     switch(minutes){
+            //         case > 0 and <=
+            //     }
+            // }
+
             break;
             case > 8 and <= 18:
             //globalLight.transform.Rotate(Vector3.right, 11f/60f, Space.World);
@@ -111,6 +133,20 @@ public class TimeHandler : MonoBehaviour
         RenderSettings.skybox.SetFloat("_Blend", 0);
         for (float i = 0; i < time; i += Time.deltaTime)
         {
+            if ((i/time)>(0.7)){
+                if(b==skyboxNight){
+                    RenderSettings.customReflectionTexture = cubemapNight;
+                }
+                else if(b==skyboxDay){
+                    RenderSettings.customReflectionTexture = cubemapDay;
+                }
+                else if(b==skyboxSunrise){
+                    RenderSettings.customReflectionTexture = cubemapSunrise;
+                }
+                else if(b==skyboxSunset){
+                    RenderSettings.customReflectionTexture = cubemapSunset;
+                }
+            }
             RenderSettings.skybox.SetFloat("_Blend", i / time);
             yield return null;
         }
