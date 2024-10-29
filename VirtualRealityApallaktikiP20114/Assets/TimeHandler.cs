@@ -31,6 +31,7 @@ public class TimeHandler : MonoBehaviour
     public int Hours{ get { return hours; } set { hours = value; OnHoursChange(hours); }}
 
     private float tempSecond = 0;
+    public TextMeshProUGUI time;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +58,21 @@ public class TimeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        String str1 = hours.ToString(), str2 = minutes.ToString();
+        if(hours.ToString().Length == 1){
+            str1 = "0" + str1;
+        }
+        if(minutes.ToString().Length == 1){
+            str2 = "0" + str2;
+        }
+        time.SetText(str1 + ":" + str2);
+        // if(minutes >= 0 && minutes < 10){
+        //     time.SetText(hours.ToString() + ":0" + minutes.ToString());
+        // }else
+        // {
+        //     time.SetText(hours.ToString() + ":" + minutes.ToString());
+        // }
+
         tempSecond += Time.deltaTime*10; //(float) 0.1; 
         if(tempSecond>=1){
             Minutes += 1; //minutes += 1;
