@@ -17,7 +17,7 @@ public class RoutineOfRunner : MonoBehaviour
     public Transform[] PathPoints;
     public int index = 0;
     public int indexForBed;
-    public float minDistance = 0;
+    public float minDistance = 1;
     public int[] indeces = {2, 3, 4};
     //public Light globalLight;
     public Transform[] bedRoute1;
@@ -25,6 +25,7 @@ public class RoutineOfRunner : MonoBehaviour
     public Transform[] bedRoute;
     public bool initialCodeForBedExecuted = false;
     public TMPro.TextMeshProUGUI time;
+    public Collider boxColliderOfDoorBlocker;
     public int hour;
     public bool bedr1 = false;
     public bool bedr2 = false;
@@ -69,6 +70,7 @@ public class RoutineOfRunner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        unblockDoorIfOk();
         // ver0 = globalLight.transform.localRotation;
         // ver1 = globalLight.transform.eulerAngles;
         // ver2 = globalLight.transform.localEulerAngles;
@@ -221,5 +223,22 @@ public class RoutineOfRunner : MonoBehaviour
         // }
         String timee = time.text;
         hour = Int32.Parse(timee.Split(':')[0]);
+    }
+    private void unblockDoorIfOk(){
+        // // if(index == 0 && indexForBed){
+        // //     if(!boxColliderOfDoorBlocker.isTrigger){
+        // //         boxColliderOfDoorBlocker.isTrigger = true;
+        // //     }
+        // // }
+        // if(Vector3.Distance(transform.position, PathPoints[0].position) <= minDistance + 1){
+        //     if(boxColliderOfDoorBlocker.isTrigger){
+        //         boxColliderOfDoorBlocker.isTrigger = false;
+        //     }
+        // }else
+        // {
+        //     if(!boxColliderOfDoorBlocker.isTrigger){
+        //         boxColliderOfDoorBlocker.isTrigger = true;
+        //     }
+        // }
     }
 }
