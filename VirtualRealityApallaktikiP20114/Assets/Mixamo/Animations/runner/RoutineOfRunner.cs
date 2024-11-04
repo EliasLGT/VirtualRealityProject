@@ -17,7 +17,7 @@ public class RoutineOfRunner : MonoBehaviour
     public Transform[] PathPoints;
     public int index = 0;
     public int indexForBed;
-    public float minDistance = 1;
+    public float minDistance = 0;
     public int[] indeces = {2, 3, 4};
     //public Light globalLight;
     public Transform[] bedRoute1;
@@ -25,7 +25,7 @@ public class RoutineOfRunner : MonoBehaviour
     public Transform[] bedRoute;
     public bool initialCodeForBedExecuted = false;
     public TMPro.TextMeshProUGUI time;
-    public Collider boxColliderOfDoorBlocker;
+    public Rigidbody doorRigidbody;
     public int hour;
     public bool bedr1 = false;
     public bool bedr2 = false;
@@ -173,7 +173,7 @@ public class RoutineOfRunner : MonoBehaviour
 
     private void OnTriggerExit(Collider other){
         if (other.CompareTag("Player")){
-            if(hour >= 6 && hour <= 9){
+            if(hour >= 6 && hour <= 21){
                 Stop();
                 if(indeces.Contains(index)){
                     Jog();
@@ -240,5 +240,11 @@ public class RoutineOfRunner : MonoBehaviour
         //         boxColliderOfDoorBlocker.isTrigger = true;
         //     }
         // }
+        if(Vector3.Distance(transform.position, PathPoints[0].position) <= minDistance){
+            doorRigidbody.isKinematic = true;
+        }else
+        {
+            doorRigidbody.isKinematic = false;
+        }
     }
 }
