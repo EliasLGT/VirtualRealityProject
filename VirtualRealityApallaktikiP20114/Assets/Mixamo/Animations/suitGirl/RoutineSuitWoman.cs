@@ -11,11 +11,11 @@ public class RoutineSuitWoman : MonoBehaviour
     public GameObject PATH;
     public Transform[] PathPoints;
     public int index = 0;
-    public float minDistance = 0;
+    public float minDistance = 1;
     public TMPro.TextMeshProUGUI time;
     public int hour;
     public Rigidbody doorRigidbody;
-    public bool haveYawned = false, check = false;
+    public bool haveYawned = false, check = false, isTalking = false;
     public GameObject suitGuy;
     public GameObject suitGuySleepSpot;
 
@@ -37,8 +37,8 @@ public class RoutineSuitWoman : MonoBehaviour
         unblockDoorIfOk();
         updateHour();
 
-        if(hour >= 5 && hour <= 18){
-            if(Vector3.Distance(transform.position, PathPoints[4].position) > minDistance){
+        if(hour >= 6 && hour <= 19){
+            if(Vector3.Distance(transform.position, PathPoints[3].position) > minDistance){
                 goToTalkingSpot();
             }else
             {
@@ -82,44 +82,78 @@ public class RoutineSuitWoman : MonoBehaviour
     }
 
     private void talk(){
-        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Talking") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Thinking") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Crazy Gesture")){
-            if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Waving")){
-                agent.isStopped = true;
-                Stop();
-                //startTalking();
-            }
-        }else{
-            if(animator.GetBool("Stop") && animator.GetBool("startTalking")){
-                animator.ResetTrigger("Stop");
-                animator.ResetTrigger("startTalking");
-            }
+        // // Debug.Log("Girl Talking");
+        // if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Talking") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Thinking") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Crazy Gesture")){
+        //     if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Waving")){
+        //         if(!agent.isStopped){
+        //             agent.isStopped = true;
+        //         }
+        //         if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")){/////////////////////////////////////////////////<-Na to do 
+        //             Stop();
+        //         }
+        //         // if(animator.GetCurrentAnimatorStateInfo(0).IsName("Walking")){
+        //         //     Stop();
+        //         // }
+        //         //startTalking();
+        //     }
+        // }else{
+        //     if(animator.GetBool("Stop") && animator.GetBool("startTalking")){
+        //         animator.ResetTrigger("Stop");
+        //         animator.ResetTrigger("startTalking");
+        //     }
+        // }
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Walking")){
+            animator.SetTrigger("Stop");
+            //Na balo edo kai ena agent.isStopped = true; ?
         }
     }
 
     private void OnTriggerEnter(Collider other){
         if(other.CompareTag("Player")){
             if(haveYawned){
+                if(animator.GetBool("Stop")){
+                    animator.ResetTrigger("Stop");
+                }
                 if(!agent.isStopped){
                     agent.isStopped = true;
                 }
                 Wave();
             }
-        }else if (other.CompareTag("Interactable"))
+        }
+        // else if (other.CompareTag("Interactable") && hour >= 6 && hour <= 19 && Vector3.Distance(transform.position, PathPoints[3].position) <= minDistance && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        // {
+        //     // if(animator.GetBool("Stop")){
+        //     //     animator.ResetTrigger("Stop");
+        //     // }
+        //     startTalking();
+        //     isTalking = true;
+        // }
+    }
+
+    private void OnTriggerStay(Collider other){
+        if(other.CompareTag("Interactable") && animator.GetBool("startTalking")){
+            animator.ResetTrigger("startTalking");
+        }
+        if (other.CompareTag("Interactable") && hour >= 6 && hour <= 19 && Vector3.Distance(transform.position, PathPoints[3].position) <= minDistance && animator.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             startTalking();
+            isTalking = true;
         }
     }
 
     private void OnTriggerExit(Collider other){
         if(other.CompareTag("Player")){
             if(haveYawned){
-                if(hour >= 6 && hour <= 18){
+                if(hour >= 6 && hour <= 19){
                     if(Vector3.Distance(transform.position, PathPoints[3].position) <= minDistance){
                         if(!agent.isStopped){
                             agent.isStopped = true;
                         }
+                        // if(!animator.GetBool("Stop")){
+                        //     Stop();
+                        // }
                         Stop();
-                        startTalking();
+                        //startTalking();///////////////////////////////////<-Xoris to isTalking, an to bgalo apo sxolia auto 8a mporei na xaireta otan mila kai na jana mila otan fygo
                     }else
                     {
                         if(agent.isStopped){
@@ -137,6 +171,10 @@ public class RoutineSuitWoman : MonoBehaviour
                     Walk();
                 }
             }
+        }else if (other.CompareTag("Interactable") && hour < 6 && hour > 19 && Vector3.Distance(transform.position, PathPoints[3].position) <= minDistance)
+        {
+            immediateIdle();
+            // if(agent.isStopped)
         }
     }
 
@@ -162,8 +200,10 @@ public class RoutineSuitWoman : MonoBehaviour
     void goToBed(){
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Talking") || animator.GetCurrentAnimatorStateInfo(0).IsName("Thinking") || animator.GetCurrentAnimatorStateInfo(0).IsName("Crazy Gesture")){
             immediateIdle();
+            isTalking = false;
             //animator.SetTrigger("Idle");
         }else if(animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")){
+            //immediateIdle();
             if(agent.isStopped){
                 agent.isStopped = false;
             }

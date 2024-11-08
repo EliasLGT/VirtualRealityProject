@@ -110,7 +110,7 @@ public class RoutineSittingBrunette : MonoBehaviour
     private void OnTriggerExit(Collider other){
         if(other.CompareTag("Player")){
             if(haveYawned){
-                if(hour >= 6 && hour <= 18){
+                if(hour >= 5 && hour <= 18){
                     if(Vector3.Distance(transform.position, PathPoints[4].position) <= minDistance){
                         if(!agent.isStopped){
                             agent.isStopped = true;
