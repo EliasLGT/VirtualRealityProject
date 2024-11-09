@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.408
   m_CustomReflection: {fileID: 8900000, guid: e0f4f9c3f5dac244bae8a8a4b4181a9d, type: 2}
   m_Sun: {fileID: 410087040}
-  m_IndirectSpecularColor: {r: 0.21829394, g: 0.3107521, b: 0.38002703, a: 0.408}
+  m_IndirectSpecularColor: {r: 0.0108659165, g: 0.11957883, b: 0.19886129, a: 0.408}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -35096,15 +35096,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4289291022717028, guid: 7ecf74b289b28f246bfea1ee3e275c26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 511.09
+      value: 511.55
       objectReference: {fileID: 0}
     - target: {fileID: 4289291022717028, guid: 7ecf74b289b28f246bfea1ee3e275c26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.76
+      value: 0.74
       objectReference: {fileID: 0}
     - target: {fileID: 4289291022717028, guid: 7ecf74b289b28f246bfea1ee3e275c26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -354.93
+      value: -352.73
       objectReference: {fileID: 0}
     - target: {fileID: 4289291022717028, guid: 7ecf74b289b28f246bfea1ee3e275c26, type: 3}
       propertyPath: m_LocalRotation.w
@@ -83988,7 +83988,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.5
   m_BaseOffset: 0.4
@@ -84037,6 +84037,7 @@ MonoBehaviour:
   PATH: {fileID: 197938466}
   PathPoints: []
   initialPosition: {fileID: 9958963}
+  Position: {x: 0, y: 0, z: 0}
   index: 1
   minDistance: 1
   time: {fileID: 1391112091}
@@ -84046,6 +84047,8 @@ MonoBehaviour:
   wheelAnimator3: {fileID: 238874187}
   wheelAnimator4: {fileID: 281009620}
   haveMadeCircle: 0
+  iAmYellowCar: 0
+  otherCar: {fileID: 0}
 --- !u!135 &2016396419
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -87524,7 +87527,7 @@ PrefabInstance:
     - target: {fileID: 6123933322460839300, guid: 9a0b998e50ff8d24a9d8d39b55f6a714,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -90.19
+      value: -56.2
       objectReference: {fileID: 0}
     - target: {fileID: 6123933322460839300, guid: 9a0b998e50ff8d24a9d8d39b55f6a714,
         type: 3}
@@ -87534,7 +87537,7 @@ PrefabInstance:
     - target: {fileID: 6123933322460839300, guid: 9a0b998e50ff8d24a9d8d39b55f6a714,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -230.11
+      value: -264
       objectReference: {fileID: 0}
     - target: {fileID: 6123933322460839300, guid: 9a0b998e50ff8d24a9d8d39b55f6a714,
         type: 3}

@@ -12,12 +12,14 @@ public class YellowCarScript : MonoBehaviour
     public GameObject PATH;
     public Transform[] PathPoints;
     public Transform initialPosition;
+    public Vector3 Position;
     public int index = 1;
     public float minDistance = 1;
     public TMPro.TextMeshProUGUI time;
     public int hour;
     public Animator wheelAnimator, wheelAnimator2, wheelAnimator3, wheelAnimator4;
-    public bool haveMadeCircle = false;
+    public bool haveMadeCircle = false, iAmYellowCar;
+    public GameObject otherCar;
     //private Transform difference;
     // public Collider entryBorder, exitBorder;
     // Start is called before the first frame update
@@ -39,6 +41,19 @@ public class YellowCarScript : MonoBehaviour
             }
         }
         //difference.position = initialPosition.position - PathPoints[PathPoints.Length - 1].position;
+        // Position = new Vector3(511.55f, 0.74f, -352.73f);
+        // UnityEngine.Debug.Log(transform.position);
+        // UnityEngine.Debug.Log(transform.localPosition);
+        // UnityEngine.Debug.Log(PathPoints[0].position);
+        // UnityEngine.Debug.Log(PathPoints[0].localPosition);
+        if (otherCar.Equals(GameObject.Find("Car 2")))
+        {
+            iAmYellowCar = false;
+            UnityEngine.Debug.Log("I am not Yellow car");
+        }else{
+            iAmYellowCar = true;
+            UnityEngine.Debug.Log("I am Yellow car");
+        }
     }
 
     // Update is called once per frame
@@ -57,37 +72,52 @@ public class YellowCarScript : MonoBehaviour
         //     goToBed();
         // }
         if(Vector3.Distance(transform.position, PathPoints[index].position) <= minDistance){
-            if(index >= 0 && index < PathPoints.Length - 1){
+            if(index >= 0 && index < PathPoints.Length){// - 1){
                 if (index == 19 && haveMadeCircle)//(hour < 6 || hour > 19))
                 {
                     index = 37;
                     agent.speed = 9;
+                    //agent.autoBraking = true;
                     // if(hour > 21){
                     //     agent.speed = 9;
                     // }
                 }else if (index == 36)
                 {
                     index = 13;
-                }else if (index == 50)
-                {
+                }else if (index == 46){
+                    //agent.isStopped = true;
+                    agent.enabled = false;
                     index = 0;
-                }
+                    transform.position = PathPoints[0].position;
+                }//else if (index == 50)
+                // {
+                //     index = 0;
+                //     haveMadeCircle = false;
+                //     agent.autoBraking = true;
+                //     agent.speed = 15;
+                // }
                 else
                 {
                     index += 1;
                     if (index == 10)
                     {
-                        agent.speed = 4.5f;
+                        agent.speed = 4f;
+                        agent.autoBraking = false;
                     }else if (index == 20)
                     {
                         haveMadeCircle = true;
                     }else if (index == 47)
                     {
-                        agent.speed = 40;
-                    }else if (index == 1)
+                        agent.speed = 60;
+                        agent.autoBraking = true;
+                    }else if (index == 1 && hour < 16)
                     {
+                        //agent.isStopped = false;
+                        agent.enabled = true;
+                        agent.autoBraking = false;
+                        agent.speed = 9;
                         if(hour >= 4){
-                            agent.speed = 11;
+                            agent.speed = 12;
                         }
                     }
                 }
@@ -110,7 +140,7 @@ public class YellowCarScript : MonoBehaviour
             // }
         }
 
-        agent.SetDestination(PathPoints[index].position);
+        if(agent.enabled){agent.SetDestination(PathPoints[index].position);}
     }
 
     // private void OnTriggerEnter(Collider other){
