@@ -11,7 +11,7 @@ public class YellowCarScript : MonoBehaviour
     public NavMeshAgent agent;
     public GameObject PATH;
     public Transform[] PathPoints;
-    public Transform initialPosition;
+    //public Transform initialPosition;
     public Vector3 Position;
     public int index = 1;
     public float minDistance = 1;
@@ -20,6 +20,7 @@ public class YellowCarScript : MonoBehaviour
     public Animator wheelAnimator, wheelAnimator2, wheelAnimator3, wheelAnimator4;
     public bool haveMadeCircle = false, iAmYellowCar;
     public GameObject otherCar;
+    public Transform startingPointOfNonYellowCar;
     //private Transform difference;
     // public Collider entryBorder, exitBorder;
     // Start is called before the first frame update
@@ -71,7 +72,7 @@ public class YellowCarScript : MonoBehaviour
         // }else{
         //     goToBed();
         // }
-        if(Vector3.Distance(transform.position, PathPoints[index].position) <= minDistance){
+        if(Vector3.Distance(transform.position, PathPoints[index].position) <= minDistance || (!iAmYellowCar && Vector3.Distance(transform.position, startingPointOfNonYellowCar.position) <= minDistance && index == 0)){
             if(index >= 0 && index < PathPoints.Length){// - 1){
                 if (index == 19 && haveMadeCircle)//(hour < 6 || hour > 19))
                 {
@@ -88,7 +89,13 @@ public class YellowCarScript : MonoBehaviour
                     //agent.isStopped = true;
                     agent.enabled = false;
                     index = 0;
-                    transform.position = PathPoints[0].position;
+                    haveMadeCircle = false;
+                    if(iAmYellowCar){
+                        transform.position = PathPoints[0].position;
+                    }else
+                    {
+                        transform.position = startingPointOfNonYellowCar.position;
+                    }
                 }//else if (index == 50)
                 // {
                 //     index = 0;
@@ -116,7 +123,7 @@ public class YellowCarScript : MonoBehaviour
                         agent.enabled = true;
                         agent.autoBraking = false;
                         agent.speed = 9;
-                        if(hour >= 4){
+                        if(hour >= 3){
                             agent.speed = 12;
                         }
                     }
@@ -140,21 +147,38 @@ public class YellowCarScript : MonoBehaviour
             // }
         }
 
-        if(agent.enabled){agent.SetDestination(PathPoints[index].position);}
+        if(agent.enabled){
+            agent.SetDestination(PathPoints[index].position);
+        }else
+        {
+            if (index == 1 && hour < 16)
+            {
+                agent.enabled = true;
+                agent.autoBraking = false;
+                agent.speed = 9;
+                if(hour >= 3){
+                    agent.speed = 12;
+                }
+            }
+        }
     }
 
-    // private void OnTriggerEnter(Collider other){
-    //     if(other.CompareTag("Player") || other.CompareTag("Interactable")){
-    //         agent
-    //     }
-    // }
+    private void OnTriggerEnter(Collider other){
+        if(other.CompareTag("Car")){//if(other.CompareTag("Player") || other.CompareTag("Interactable") || other.CompareTag("Car")){
+            agent.isStopped = true;
+            wheelAnimator.speed = 0f;
+            wheelAnimator2.speed = 0f;
+            wheelAnimator3.speed = 0f;
+            wheelAnimator4.speed = 0f;
+        }
+    }
 
     // private void OnCollisionEnter(Collision collision){
     //     if(collision.gameObject.tag == "entryBorder")
     // }
 
     private void OnTriggerStay(Collider other){
-        if(other.CompareTag("Player") || other.CompareTag("Interactable") || other.CompareTag("Car")){
+        if(other.CompareTag("Player") || other.CompareTag("Interactable")){// || other.CompareTag("Car")){
             agent.isStopped = true;
             wheelAnimator.speed = 0f;
             wheelAnimator2.speed = 0f;
