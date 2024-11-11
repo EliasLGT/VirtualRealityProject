@@ -21,6 +21,7 @@ public class YellowCarScript : MonoBehaviour
     public bool haveMadeCircle = false, iAmYellowCar;
     public GameObject otherCar;
     public Transform startingPointOfNonYellowCar;
+    public AudioSource honk;
     //private Transform difference;
     // public Collider entryBorder, exitBorder;
     // Start is called before the first frame update
@@ -170,6 +171,7 @@ public class YellowCarScript : MonoBehaviour
             wheelAnimator2.speed = 0f;
             wheelAnimator3.speed = 0f;
             wheelAnimator4.speed = 0f;
+            honk.enabled = true;
         }
     }
 
@@ -184,6 +186,7 @@ public class YellowCarScript : MonoBehaviour
             wheelAnimator2.speed = 0f;
             wheelAnimator3.speed = 0f;
             wheelAnimator4.speed = 0f;
+            honk.enabled = true;
         }
     }
 
@@ -194,6 +197,7 @@ public class YellowCarScript : MonoBehaviour
             wheelAnimator2.speed = 1f;
             wheelAnimator3.speed = 1f;
             wheelAnimator4.speed = 1f;
+            honk.enabled = false;
         }
     }
 
