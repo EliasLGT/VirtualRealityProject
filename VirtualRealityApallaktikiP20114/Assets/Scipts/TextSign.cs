@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,11 @@ public class TextSign : MonoBehaviour, IInteractable
 	[SerializeField] private GameObject indicator;
     [TextArea(3,10)]
     public string text;
+    private string textt;
+
+    public void setText(string teext){
+      text = teext;
+    }
 
     public void OnInteract(Interactor interactor){
 		indicator.SetActive(false); //hide

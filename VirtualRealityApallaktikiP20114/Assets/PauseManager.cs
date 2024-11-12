@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.Localization.Settings;
 
 public class PauseManager : MonoBehaviour
 {
     [SerializeField] private KeyCode pauseKey = KeyCode.Escape;
     [SerializeField] private GameObject pauseScreen;
     [SerializeField] private ThirdPersonController controller;
+    private bool active = false;
     bool isPaused = false;
     bool cursorVisibility;
     CursorLockMode cursorState;
@@ -53,6 +55,21 @@ public class PauseManager : MonoBehaviour
         controller.enabled = true;
         pauseScreen.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    public void ChangeLocale(int localeID){
+        if (active)
+        {
+            return;
+        }
+        StartCoroutine(SetLocale(localeID));
+    }
+
+    IEnumerator SetLocale(int _localeID){
+        active = true;
+        yield return LocalizationSettings.InitializationOperation;
+        LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_localeID];
+        active = false;
     }
 
     public void Quit(){

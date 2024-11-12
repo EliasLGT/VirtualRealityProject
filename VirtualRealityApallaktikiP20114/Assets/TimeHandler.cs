@@ -25,6 +25,7 @@ public class TimeHandler : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI Clock;
  
     [SerializeField] private Light globalLight;
+    [SerializeField] private GameObject streetLightsParent;
     private int minutes;
     public int Minutes{ get { return minutes; } set { minutes = value; OnMinutesChange(minutes); }}
     private int hours;
@@ -58,6 +59,12 @@ public class TimeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(hours > 20 || hours < 6){
+            streetLightsParent.SetActive(true);
+        }else
+        {
+            streetLightsParent.SetActive(false);
+        }
         String str1 = hours.ToString(), str2 = minutes.ToString();
         if(hours.ToString().Length == 1){
             str1 = "0" + str1;

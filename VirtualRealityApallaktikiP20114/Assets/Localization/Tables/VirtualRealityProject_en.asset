@@ -1,0 +1,98 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: VirtualRealityProject_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: f5f38529b18108040bb63aeb28d5596a, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 167662018560
+    m_Localized: Pause Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10916811726848
+    m_Localized: Press "P" to pause or to resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11240301617152
+    m_Localized: 'You may select your prefered language:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11460116701184
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11535245074432
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12771058999296
+    m_Localized: Press 'E' to interact
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14820312047616
+    m_Localized: 'OMG!
+
+      I crashed again!'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19609821339648
+    m_Localized: Hello! Do you like our town?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 23804410552320
+    m_Localized: Oh, hi bro! You know that my door is open for you all day and night
+      right?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24805246984192
+    m_Localized: I like living in this small town!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24966228566016
+    m_Localized: What a beautiful day!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25455888392192
+    m_Localized: Hello! I am out for some cardio!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 25835628093440
+    m_Localized: Oh hi! My friend crashed my car again and i need to tell my dad!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26618440409088
+    m_Localized: Hey! What's up?
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26740884725760
+    m_Localized: Hello there! Have you seen my son? He is the guy with the red T-shirt.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58248353767424
+    m_Localized: I can't leave yet. I haven't fixed it!
+    m_Metadata:
+      m_Items: []
+  - m_Id: 58558790983680
+    m_Localized: Want to get to the chopper? Hahaha
+    m_Metadata:
+      m_Items: []
+  - m_Id: 62353449115648
+    m_Localized: I feel so energetic!
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
